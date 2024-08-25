@@ -1,3 +1,6 @@
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
+
 namespace RayTracer;
 
 public class PPM
@@ -11,12 +14,16 @@ public class PPM
     }
 
     public static void Init()
-    {
+    {   
         string filePath = Directory.GetCurrentDirectory();
 
         //auto invoke dispose() to free resources
         using (StreamWriter imageFile = new StreamWriter(Path.Combine(filePath, "image.ppm")))
         {
+            double progress = 0.0;
+            int countLines = 0;
+            int maxLines = imageWidth * imageHeight;
+
             imageFile.WriteLine($"P3\n{imageWidth} {imageHeight}\n255");
 
             for (int i = 0; i < imageHeight; i++)
@@ -32,9 +39,12 @@ public class PPM
                     int ib = (int)(255.999 * b);
 
                     imageFile.WriteLine($"{ir} {ig} {ib}");
+
+                    progress = countLines++ * 100.0 / maxLines;   
+                    Console.Write($"\rCreating file...{progress, 1:F}%");
                 }
             }
-            Console.WriteLine("ppm file created.");
+            Console.WriteLine("\nppm file created.");
         };  
     }
 }
