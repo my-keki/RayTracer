@@ -1,61 +1,54 @@
 namespace RayTracer;
 
-public class Vector3
+public class Vector3 : Point3
 {
-    public double X { get; set; }
-    public double Y { get; set; }
-    public double Z { get; set; }
-
-    public Vector3() {
-        X = 0;
-        Y = 0;
-        Z = 0;
-    }
-
-    public Vector3(double x, double y, double z)
+    public Vector3() : base()
     {
-        X = x;
-        Y = y;
-        Z = z;
-    }
 
-    public static Vector3 operator - (Vector3 v)
+    }
+    
+    public Vector3(double x, double y, double z) : base(x, y, z)
+    {
+
+    }
+    
+    public static Vector3 operator -(Vector3 v)
     {
         return new Vector3(-v.X, -v.X, -v.X);
     }
 
-    public static Vector3 operator + (Vector3 v1, Vector3 v2)
+    public static Vector3 operator +(Vector3 v1, Vector3 v2)
     {
         return new Vector3(v1.X + v2.X, v1.Y + v2.Y, v1.Z + v2.Z);
     }
 
-    public static Vector3 operator - (Vector3 v1, Vector3 v2)
+    public static Vector3 operator -(Vector3 v1, Vector3 v2)
     {
         return new Vector3(v1.X - v2.X, v1.Y - v2.Y, v1.Z - v2.Z);
     }
 
-    public static Vector3 operator * (Vector3 v1, Vector3 v2)
+    public static Vector3 operator *(Vector3 v1, Vector3 v2)
     {
         return new Vector3(v1.X * v2.X, v1.Y * v2.Y, v1.Z * v2.Z);
     }
 
-    public static Vector3 operator * (Vector3 v, double t)
+    public static Vector3 operator *(Vector3 v, double t)
     {
         return new Vector3(v.X * t, v.Y * t, v.Z * t);
     }
 
-    public static Vector3 operator / (Vector3 v1, Vector3 v2)
+    public static Vector3 operator /(Vector3 v1, Vector3 v2)
     {
         return new Vector3(v1.X / v2.X, v1.Y / v2.Y, v1.Z / v2.Z);
     }
 
-    public static Vector3 operator / (Vector3 v, double t)
+    public static Vector3 operator /(Vector3 v, double t)
     {
         return new Vector3(v.X / t, v.Y / t, v.Z / t);
     }
 
     public double Length()
-    {   
+    {
         return Math.Sqrt(X * X + Y * Y + Z * Z);
     }
 
@@ -78,6 +71,4 @@ public class Vector3
     {
         return $"{X}, {Y}, {Z}";
     }
-
-
 }
