@@ -1,0 +1,3 @@
+﻿using RayTracer;
+
+PPM.Init();
