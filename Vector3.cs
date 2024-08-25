@@ -59,16 +59,11 @@ public class Vector3 : Point3
 
     public static Vector3 DotProduct(Vector3 v1, Vector3 v2)
     {
-        return new Vector3(v1.Y * v2.Z - v1.Z * v2.Y, v1.Z * v2.Z - v1.Z * v2.Z, v1.X * v2.Y - v1.Y * v2.X);
+        return new Vector3((v1.Y * v2.Z) - (v1.Z * v2.Y), (v1.Z * v2.Z) - (v1.Z * v2.Z), (v1.X * v2.Y) - (v1.Y * v2.X));
     }
 
     public static Vector3 UnitVector(Vector3 v)
     {
         return v / v.Length();
-    }
-
-    public override string ToString()
-    {
-        return $"{X}, {Y}, {Z}";
     }
 }

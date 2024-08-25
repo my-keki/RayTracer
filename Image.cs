@@ -1,20 +1,24 @@
 namespace RayTracer;
 
-public class PPM
-{
-    public const int imageWidth = 256;
-    public const int imageHeight = 256;
-
-    public PPM()
+public class Image
+{   
+    public double aspectRatio;
+    public  int imageWidth;
+    public int imageHeight;
+    
+    
+    public Image()
     {
-
+        aspectRatio =  16.0 / 9.0;
+        imageWidth = 400;
+        imageHeight = (int)(imageWidth / aspectRatio);   //height cannot be negative  
+        imageHeight = imageHeight < 1 ? 1 : imageHeight;
     }
 
-    public static void Init()
+    public void Render(Camera camera)
     {   
         string filePath = Directory.GetCurrentDirectory();
 
-        //auto invoke dispose() to free resources
         using (StreamWriter imageFile = new StreamWriter(Path.Combine(filePath, "image.ppm")))
         {
             double progress = 0.0;
@@ -26,12 +30,13 @@ public class PPM
             for (int i = 0; i < imageHeight; i++)
             {
                 for (int j = 0; j < imageWidth; j++)
-                {            
-                    double r = (double)i / (imageWidth - 1);
-                    double g = (double)j / (imageHeight - 1);
-                    double b = 0.0;
+                {             
+                    Vector3 pixelCenter = camera.startingPoint + (camera.pixelDeltaU * i) + (camera.pixelDeltaV * j);
+                    Vector3 rayDirection = pixelCenter - camera.cameraCenter;
 
-                    Color pixelColor = new Color(r, g, b);
+                    Ray ray = new Ray(camera.cameraCenter, rayDirection);
+
+                    Color pixelColor = Color.RayColor(ray);
                     pixelColor.WriteColor(imageFile, pixelColor);
 
                     progress = countLines++ * 100.0 / maxLines;   
