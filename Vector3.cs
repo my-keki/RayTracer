@@ -2,9 +2,9 @@ namespace RayTracer;
 
 public class Vector3
 {
-    protected double X { get; set; }
-    protected double Y { get; set; }
-    protected double Z { get; set; }
+    public double X { get; set; }
+    public double Y { get; set; }
+    public double Z { get; set; }
 
     public Vector3() {
         X = 0;

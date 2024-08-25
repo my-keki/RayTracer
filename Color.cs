@@ -2,7 +2,12 @@ namespace RayTracer;
 
 public class Color : Vector3
 {
-    public void WriteColor(Color pixelColor)
+    public Color(double r, double g, double b) : base(r, g, b)
+    {
+        
+    }
+
+    public void WriteColor(StreamWriter streamWriter, Color pixelColor)
     {
         double r = pixelColor.X;
         double g = pixelColor.Y;
@@ -12,6 +17,6 @@ public class Color : Vector3
         int ig = (int)(255.999 * g);
         int ib = (int)(255.999 * b);
 
-        Console.WriteLine($"{ir} {ig} {ib}");
+        streamWriter.WriteLine($"{ir} {ig} {ib}");
     }
 }

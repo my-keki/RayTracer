@@ -1,6 +1,3 @@
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
-
 namespace RayTracer;
 
 public class PPM
@@ -29,16 +26,13 @@ public class PPM
             for (int i = 0; i < imageHeight; i++)
             {
                 for (int j = 0; j < imageWidth; j++)
-                {
+                {            
                     double r = (double)i / (imageWidth - 1);
                     double g = (double)j / (imageHeight - 1);
                     double b = 0.0;
 
-                    int ir = (int)(255.999 * r);
-                    int ig = (int)(255.999 * g);
-                    int ib = (int)(255.999 * b);
-
-                    imageFile.WriteLine($"{ir} {ig} {ib}");
+                    Color pixelColor = new Color(r, g, b);
+                    pixelColor.WriteColor(imageFile, pixelColor);
 
                     progress = countLines++ * 100.0 / maxLines;   
                     Console.Write($"\rCreating file...{progress, 1:F}%");
