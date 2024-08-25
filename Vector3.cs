@@ -1,10 +1,10 @@
 namespace RayTracer;
 
-class Vector3
+public class Vector3
 {
-    double X { get; set; }
-    double Y { get; set; }
-    double Z { get; set; }
+    protected double X { get; set; }
+    protected double Y { get; set; }
+    protected double Z { get; set; }
 
     public Vector3() {
         X = 0;
