@@ -1,8 +1,10 @@
+using System.Numerics;
+
 namespace RayTracer;
 
 public class Ray
 {
-    public Point3 Origin { get; }
+    public Vector3 Origin { get; }
     public Vector3 Direction { get; }
 
     public Ray()
@@ -10,14 +12,24 @@ public class Ray
         
     }
 
-    public Ray(Point3 origin, Vector3 direction)
+    public Ray(Vector3 origin, Vector3 direction)
     {
         Origin = origin;
         Direction = direction;
     }
 
-    public Point3 GetPosition(double t)
+    public Vector3 GetPosition(float t)
     {
-        return Origin + (Direction * t);
+        return Origin + Vector3.Multiply(Direction, t);
+    }
+
+    public bool HitSphere(Vector3 center, float radius, Ray ray)
+    {
+        Vector3 oc = center - ray.Origin;
+        var a = Vector3.Dot(ray.Direction, ray.Direction);
+        var b = -2.0 * Vector3.Dot(ray.Direction, oc);
+        var c = Vector3.Dot(oc, oc) - (radius * radius);
+        var discriminant = (b * b) - (a * c * 4);
+        return discriminant >= 0;
     }
 }

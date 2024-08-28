@@ -1,3 +1,5 @@
+using System.Numerics;
+
 namespace RayTracer;
 
 public class Image
@@ -5,7 +7,6 @@ public class Image
     public double aspectRatio;
     public  int imageWidth;
     public int imageHeight;
-    
     
     public Image()
     {
@@ -27,9 +28,9 @@ public class Image
 
             imageFile.WriteLine($"P3\n{imageWidth} {imageHeight}\n255");
 
-            for (int i = 0; i < imageHeight; i++)
+            for (int j = 0; j < imageHeight; j++)
             {
-                for (int j = 0; j < imageWidth; j++)
+                for (int i = 0; i < imageWidth; i++)
                 {             
                     Vector3 pixelCenter = camera.startingPoint + (camera.pixelDeltaU * i) + (camera.pixelDeltaV * j);
                     Vector3 rayDirection = pixelCenter - camera.cameraCenter;

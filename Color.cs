@@ -1,37 +1,50 @@
+using System.Numerics;
+
 namespace RayTracer;
 
-public class Color : Vector3
+public class Color
 {
-    public double R {get => X; set => X = value;}
-    public double G {get => Y; set => Y = value;}
-    public double B {get => Z; set => Z = value;}
+    Vector3 vector3;
+    public float R { get; set; }
+    public float G { get; set; }
+    public float B { get; set; }
 
-    public Color() : base()
+    public Color()
     {
 
     }
-    public Color(double r, double g, double b) : base(r, g, b)
+    public Color(float r, float g, float b)
     {
-       
+        vector3 = new Vector3(r, g, b);
+
+        R = vector3.X;
+        G = vector3.Y;
+        B = vector3.Z;
     }
 
     public void WriteColor(StreamWriter streamWriter, Color pixelColor)
     {
-        int ir = (int)(255.999 * pixelColor.R);
-        int ig = (int)(255.999 * pixelColor.G);
-        int ib = (int)(255.999 * pixelColor.B);
+        int ir = (int)(255.999f * pixelColor.R);
+        int ig = (int)(255.999f * pixelColor.G);
+        int ib = (int)(255.999f * pixelColor.B);
 
         streamWriter.WriteLine($"{ir} {ig} {ib}");
     }
 
     public static Color RayColor(Ray ray)
     {
-        Vector3 unitDirection = UnitVector(ray.Direction);
-        double a = 0.5 * unitDirection.Y + 1.0;
-        return new Color (1.0, 1.0, 1.0) * (1.0 - a) + new Color(0.5, 0.7, 1.0) * a;
+
+        if (ray.HitSphere(new Vector3(0, 0, -1.0f), 0.5f, ray))
+        {
+            return new Color(1.0f, 0, 0);
+        }
+
+        Vector3 unitDirection = Vector3.Normalize(ray.Direction);
+        float a = 0.5f * unitDirection.Y + 1.0f;
+        return new Color (1.0f, 1.0f, 1.0f) * (1.0f - a) + new Color(0.5f, 0.7f, 1.0f) * a;
     }
 
-    public static Color operator *(Color c1, double a)
+    public static Color operator *(Color c1, Single a)
     {
         return new Color(c1.R * a, c1.G * a, c1.B * a);
     }
