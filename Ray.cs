@@ -23,13 +23,14 @@ public class Ray
         return Origin + Vector3.Multiply(Direction, t);
     }
 
-    public bool HitSphere(Vector3 center, float radius, Ray ray)
+    public float HitSphere(Vector3 center, float radius, Ray ray)
     {
         Vector3 oc = center - ray.Origin;
         var a = Vector3.Dot(ray.Direction, ray.Direction);
-        var b = -2.0 * Vector3.Dot(ray.Direction, oc);
+        var b = -2.0f * Vector3.Dot(ray.Direction, oc);
         var c = Vector3.Dot(oc, oc) - (radius * radius);
         var discriminant = (b * b) - (a * c * 4);
-        return discriminant >= 0;
+        
+        return (float)(discriminant < 0.0f ? -1.0f : (-b - Math.Sqrt(discriminant)) / (2.0f * a)); 
     }
 }

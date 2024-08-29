@@ -34,9 +34,12 @@ public class Color
     public static Color RayColor(Ray ray)
     {
 
-        if (ray.HitSphere(new Vector3(0, 0, -1.0f), 0.5f, ray))
+        var t = ray.HitSphere(new Vector3(0.0f, 0.0f, -1.0f), 0.5f, ray);
+
+        if (t > 0.0f)
         {
-            return new Color(1.0f, 0, 0);
+            Vector3 normal = Vector3.Normalize(ray.GetPosition(t) - new Vector3(0.0f, 0.0f, -1.0f));
+            return new Color(normal.X + 1.0f, normal.Y + 1.0f, normal.Z + 1.0f) * 0.5f;
         }
 
         Vector3 unitDirection = Vector3.Normalize(ray.Direction);
